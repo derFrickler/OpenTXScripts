@@ -1,6 +1,8 @@
 -- RSSI Model Locator
 -- by Scott Bauer 6/21/2015
 --
+-- Modified by derFrickler to work on OTX 2.2 and Taranis Q X7
+--
 -- Copy this into a SCRIPTS/TELEMETRY/ with the name `LM###.lua`,
 -- where ### is a number used to identify the script later on. (i.e. LM100.lua  Drop
 -- `sbeep.wav` into the `SOUNDS/` folder.
@@ -22,16 +24,13 @@ local function run(event)
   lcd.drawText(3, 3, "RSSI Model Locator", 0)
 
   -- RSSI # and Label
-  lcd.drawNumber(126, 10, getValue(202), XXLSIZE)
+  lcd.drawNumber(126, 10, getRSSI(), XXLSIZE)
   lcd.drawText(103, 54, "RSSI", 0)
 
   if getTime() >= nextPlayTime then
     playFile("/SOUNDS/sbeep.wav")
-    nextPlayTime = getTime() + delayMillis - getValue(202)
+    nextPlayTime = getTime() + delayMillis - getRSSI()
   end
 end
 
 return { run = run }
-
-    Contact GitHub API Training Shop Blog About 
-
